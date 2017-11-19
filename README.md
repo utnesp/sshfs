@@ -5,21 +5,21 @@ On mac installing sshfs can be done by downloading the dmg from [here](https://g
 
 After you have a working sshfs, you can run it through R. I have been using two different options (explained below)
 
-## Option 1
+# Option 1
 This option lets you have the remote directory mounted until you unmount it. The downside with this is that your network connection and your mount point will get rather unstable after some time.
 The upside is when you need to use this remote dir many times, or you need to access many files at a time.
 ```R
 sshfs <- function(remote_path, local_path, servername=NULL, id_rsa_path = NULL, useStallo = T) {
-if(is.null(servername)) servername = "YourUserName@YourServer.com:" # put your most used user and servername here to avoid typing in this everytime instantiating this process
-remote_path=paste(servername, remote_path, sep = "")
-suppressWarnings(if(file.exists(local_path)) system(paste("umount -f", local_path))) # if a mount point exist, unmount it first
-system(paste( "mkdir -p", local_path))
-if(is.null(id_rsa_path)) id_rsa_path="~/.ssh/id_rsa" # put the path to your id_rsa file her
-system(paste("sshfs -o Ciphers=arcfour,Compression=no,auto_cache,reconnect,allow_other,defer_permissions,IdentityFile=", id_rsa_path, " ", remote_path, " ", local_path, sep = ""))
+    if(is.null(servername)) servername = "YourUserName@YourServer.com:" # put your most used user and servername here to avoid typing in this everytime instantiating this process
+    remote_path=paste(servername, remote_path, sep = "")
+    suppressWarnings(if(file.exists(local_path)) system(paste("umount -f", local_path))) # if a mount point exist, unmount it first
+    system(paste( "mkdir -p", local_path))
+    if(is.null(id_rsa_path)) id_rsa_path="~/.ssh/id_rsa" # put the path to your id_rsa file her
+    system(paste("sshfs -o Ciphers=arcfour,Compression=no,auto_cache,reconnect,allow_other,defer_permissions,IdentityFile=", id_rsa_path, " ", remote_path, " ", local_path, sep = ""))
 }
 ```
 
-# Example Option 1
+### Example Option 1
 ```R
 mountdir = "/Users/username/share/mountpoint/"
 remotedir = "/path/to/remote/folder/"
@@ -32,7 +32,7 @@ files <- list.files(mountdir)
 firstfile <- fread(paste(dir, files[1], sep = "/"))
 ```
 
-## Option 2
+# Option 2
 So if you have been experiencing what I mentioned above, then use this option when you only need to read in one file at a time.
 ```R
 # make sure you have the data.table package
@@ -64,7 +64,7 @@ return(temp)
 }
 ```
 
-# Example Option 2
+### Example Option 2
 ```R
 remotefile = "/Users/username/share/mountpoint/yourfile.txt"
 
