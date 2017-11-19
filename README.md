@@ -19,6 +19,19 @@ system(paste("sshfs -o Ciphers=arcfour,Compression=no,auto_cache,reconnect,allow
 }
 ```
 
+# Example Option 1
+```R
+mountdir = "/Users/username/share/mountpoint/"
+remotedir = "/path/to/remote/folder/"
+sshfs(remotedir, mountdir)
+
+# To view files
+files <- list.files(mountdir)
+
+# Then you may would like to read in a file like this:
+firstfile <- fread(paste(dir, files[1], sep = "/"))
+```
+
 ## Option 2
 So if you have been experiencing what I mentioned above, then use this option when you only need to read in one file at a time.
 ```R
@@ -50,3 +63,12 @@ unlink(locally_mounted_file_path, recursive = T, force = T)
 return(temp)
 }
 ```
+
+# Example Option 2
+```R
+remotefile = "/Users/username/share/mountpoint/yourfile.txt"
+
+remotefile <- fread.sshfs(remotefile)
+```
+
+
