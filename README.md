@@ -18,8 +18,7 @@ source_https <- function(url, ...) {
   })
 }
 
-source_https("https://github.com/utnesp/wiggleplotR_extension/raw/master/wiggleplotR_extension.R")
-
+source_https("https://github.com/utnesp/sshfs/raw/master/sshfs.r")
 ```
 
 # Option 1
