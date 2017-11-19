@@ -3,7 +3,24 @@ Neat way to read in remote files in R using [sshfs](https://github.com/libfuse/s
 
 On mac installing sshfs can be done by downloading the dmg from [here](https://github.com/osxfuse/osxfuse/releases).
 
-After you have a working sshfs, you can run it through R. I have been using two different options (explained below)
+After you have a working sshfs, you can run it through R. I have been using two different options (explained below).
+
+You can either copy-paste code or source the R script:
+
+```R
+source_https <- function(url, ...) {
+  # load package
+  require(RCurl)
+ 
+  # parse and evaluate each .R script
+  sapply(c(url, ...), function(u) {
+    eval(parse(text = getURL(u, followlocation = TRUE, cainfo = system.file("CurlSSL", "cacert.pem", package = "RCurl"))), envir = .GlobalEnv)
+  })
+}
+
+source_https("https://github.com/utnesp/wiggleplotR_extension/raw/master/wiggleplotR_extension.R")
+
+```
 
 # Option 1
 This option lets you have the remote directory mounted until you unmount it. The downside with this is that your network connection and your mount point will get rather unstable after some time.
