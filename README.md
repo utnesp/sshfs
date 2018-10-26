@@ -82,9 +82,10 @@ fread.sshfs <- function(file_with_remote_path, servername=NULL, id_rsa_path = NU
 
 ### Example Option 2
 ```R
+servername="username@server.com:"
 remotefile = "/path/to/remote/folder/yourfile.txt"
 
-remotefile <- fread.sshfs(remotefile)
+remotefile <- fread.sshfs(remotefile, servername=servername)
 ```
 
 
